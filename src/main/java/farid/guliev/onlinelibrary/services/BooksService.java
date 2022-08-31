@@ -6,8 +6,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.comparator.Comparators;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -25,13 +26,12 @@ public class BooksService {
             return booksRepo.findAll();
     }
 
-    public List<Book> findWithPagination(int page, boolean hasSortByYear) {
+    public List<Book> getWithPagination(int page, boolean hasSortByYear) {
         if(hasSortByYear)
             return booksRepo.findAll(PageRequest.of(page,5,Sort.by("year"))).getContent();
         else
             return booksRepo.findAll(PageRequest.of(page,5)).getContent();
     }
-
 
     public Book findOne(int id) {
         return booksRepo.findById(id).stream().findFirst().orElse(null);
@@ -39,11 +39,6 @@ public class BooksService {
     @Transactional
     public void delete(int id) {
         booksRepo.deleteById(id);
-    }
-    @Transactional
-    public void update(int id, Book book) {
-        book.setId(id);
-        booksRepo.save(book);
     }
 
     @Transactional
@@ -56,7 +51,7 @@ public class BooksService {
     }
 
     public List<Book> findByTitle(String query) {
-        return booksRepo.findByTitleLikeIgnoreCase(query);
+        return booksRepo.findAllByTitleContainingIgnoreCase(query);
     }
 
 }

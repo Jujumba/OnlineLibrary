@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface BooksRepo extends JpaRepository<Book, Integer> {
     List<Book> getBooksByOwner(int id);
-    List<Book> findByTitleLikeIgnoreCase(String query);
+    List<Book> findAllByTitleContainingIgnoreCase(String query);
     List<Book> findAllByOwner(Person person);
 }

@@ -21,12 +21,12 @@ public class BooksController {
     }
     @GetMapping
     public String index(Model model,
-                        @RequestParam(value = "sort_by_year",required = false) boolean sort,
+                        @RequestParam(value = "sort-by-year",required = false) boolean sort,
                         @RequestParam(value = "page",required = false) Integer page) {
         if(page != null && sort) {
-            model.addAttribute("books",booksService.findWithPagination(page,true));
+            model.addAttribute("books",booksService.getWithPagination(page,true));
         } else if (page != null) {
-            model.addAttribute("books",booksService.findWithPagination(page,false));
+            model.addAttribute("books",booksService.getWithPagination(page,false));
         }else {
             model.addAttribute("books", booksService.findAll(sort));
         }
@@ -44,7 +44,7 @@ public class BooksController {
         return "books/new";
     }
 
-    @PostMapping("")
+    @PostMapping
     public String create(@ModelAttribute("book") Book book, @ModelAttribute("person") Person person) {
         book.setOwner(person);
         booksService.save(book);
@@ -61,7 +61,8 @@ public class BooksController {
                          @ModelAttribute("person") Person person,
                          @PathVariable("id") int id) {
         book.setOwner(person);
-        booksService.update(id,book);
+        book.setId(id);
+        booksService.save(book);
         return "redirect:/books";
     }
     @DeleteMapping("/{id}")
@@ -71,7 +72,7 @@ public class BooksController {
     }
     @PostMapping("/search")
     public String makeSearch(Model model, @RequestParam(value = "query") String bookName) {
-        model.addAttribute("books",booksService.findByTitle(bookName));
-        return "books/search";
+            model.addAttribute("books",booksService.findByTitle(bookName));
+            return "books/search";
     }
 }
