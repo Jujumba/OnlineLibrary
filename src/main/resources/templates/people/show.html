@@ -3,24 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${person.getName()}">Show</title>
+    <link rel="stylesheet" href="/static/styles/style.css">
 </head>
 <body>
-<h1>My page</h1>
-<p th:text="'My name: '+${person.getName()}">YOU WON'T SEE MEE</p>
-<p th:text="'My age: '+${person.getAge()}">YOU WON'T SEE MEE</p>
+<center>
+    <h1>My page</h1>
+    <p th:text="'My name: '+${person.getName()}">YOU WON'T SEE MEE</p>
+    <p th:text="'My age: '+${person.getAge()}">YOU WON'T SEE MEE</p>
 
-<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit me</a>
-<br>
-<h4 th:if="${!books.isEmpty()}">My books:</h4>
-<div th:each="book : ${books}"
-     th:if="${!books.isEmpty()}">
-    <a th:href="@{/books/{id}(id=${book.getId()})}"
-       th:text="${book.getTitle()} +', '+${book.getAuthor()}+', '+${book.getYear()}">book!)</a>
+    <a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit me</a>
     <br>
-</div>
-<br>
-<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
+    <h4 th:if="${!books.isEmpty()}">My books:</h4>
+    <div th:each="book : ${books}"
+         th:if="${!books.isEmpty()}">
+        <a th:href="@{/books/{id}(id=${book.getId()})}"
+           th:text="${book.getTitle()} +', '+${book.getAuthor()}+', '+${book.getYear()}">book!)</a>
+        <br>
+    </div>
+    <br>
+    <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+        <input type="submit" value="Delete"/>
+    </form>
+</center>
 </body>
 </html>

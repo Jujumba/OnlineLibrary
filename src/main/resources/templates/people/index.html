@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
+    <link rel="stylesheet" href="/static/styles/style.css">
 </head>
 <body>
-
-<div th:each="person : ${people}">
-    <a th:href="@{/people/{id}(id=${person.getId()})}"
-       th:text="${person.getName()} + ', '+ ${person.getAge()}">user</a>
-</div>
-
-<br/>
-<hr/>
-
-<a href="/people/new">Create a new person</a>
-
+<center>
+    <div th:each="person : ${people}">
+        <a th:href="@{/people/{id}(id=${person.getId()})}"
+           th:text="${person.getName()} + ', '+ ${person.getAge()}">user</a>
+    </div>
+    <br/>
+    <hr/>
+    <a href="/people/new">Create a new person</a>
+</center>
 </body>
 </html>

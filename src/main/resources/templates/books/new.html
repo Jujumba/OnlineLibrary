@@ -1,29 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Create a new book</title>
+    <link rel="stylesheet" href="/static/styles/style.css">
 </head>
 <body>
-<form th:method="POST" th:action="@{/books}" th:object="${book}">
-    <label for="title">Enter a title: </label>
-    <input type="text" th:field="${book.title}" id="title"/>
-    <br/>
-    <label for="author">Enter book's author: </label>
-    <input type ="text" th:field="${book.author}" id="author"/>
-    <br/>
-    <label for="year">Enter book's year: </label>
-    <input type ="text" th:field="${book.year}" id="year"/>
-    <br>
-    <label>Choose book's holder</label>
-    <select th:object="${person}" th:field="*{id}" name="holder_id">
-        <option th:each="person : ${people}" th:value="${person.id}" th:text="${person.getName()}">
-        </option>
-    </select>
-    <br/>
+<center>
+    <form th:method="POST" th:action="@{/books}" th:object="${book}">
+        <label for="title">Enter a title: </label>
+        <input type="text" th:field="${book.title}" id="title"/>
+        <br/>
+        <label for="author">Enter book's author: </label>
+        <input type="text" th:field="${book.author}" id="author"/>
+        <br/>
+        <label for="year">Enter book's year: </label>
+        <input type="text" th:field="${book.year}" id="year"/>
+        <br>
+        <label>Choose book's holder</label>
+        <select th:object="${person}" th:field="*{id}" name="holder_id">
+            <option th:each="person : ${people}" th:value="${person.id}" th:text="${person.getName()}">
+            </option>
+        </select>
+        <br/>
 
-    <input type="submit" value="Add a new book"/>
-</form>
+        <input type="submit" value="Add a new book"/>
+    </form>
+</center>
 
 </body>
 </html>
